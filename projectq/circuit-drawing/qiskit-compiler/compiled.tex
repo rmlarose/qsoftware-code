@@ -1,0 +1,168 @@
+\documentclass{standalone}
+\usepackage[margin=1in]{geometry}
+\usepackage[hang,small,bf]{caption}
+\usepackage{tikz}
+\usepackage{braket}
+\usetikzlibrary{backgrounds,shadows.blur,fit,decorations.pathreplacing,shapes}
+
+\begin{document}
+\begin{tikzpicture}[scale=0.8, transform shape]
+
+\tikzstyle{basicshadow}=[blur shadow={shadow blur steps=8, shadow xshift=0.7pt, shadow yshift=-0.7pt, shadow scale=1.02}]\tikzstyle{basic}=[draw,fill=white,basicshadow]
+\tikzstyle{operator}=[basic,minimum size=1.5em]
+\tikzstyle{phase}=[fill=black,shape=circle,minimum size=0.1cm,inner sep=0pt,outer sep=0pt,draw=black]
+\tikzstyle{none}=[inner sep=0pt,outer sep=-.5pt,minimum height=0.5cm+1pt]
+\tikzstyle{measure}=[operator,inner sep=0pt,minimum height=0.5cm, minimum width=0.75cm]
+\tikzstyle{xstyle}=[circle,basic,minimum height=0.35cm,minimum width=0.35cm,inner sep=-1pt,very thin]
+\tikzset{
+shadowed/.style={preaction={transform canvas={shift={(0.5pt,-0.5pt)}}, draw=gray, opacity=0.4}},
+}
+\tikzstyle{swapstyle}=[inner sep=-1pt, outer sep=-1pt, minimum width=0pt]
+\tikzstyle{edgestyle}=[very thin]
+
+\node[none] (line0_gate0) at (0.1,-0) {$\Ket{0}$};
+\node[none] (line1_gate0) at (0.1,-1) {$\Ket{0}$};
+\node[xstyle] (line0_gate1) at (0.5,-0) {};
+\draw[edgestyle] (line0_gate1.north)--(line0_gate1.south);
+\draw[edgestyle] (line0_gate1.west)--(line0_gate1.east);
+\node[phase] (line1_gate1) at (0.5,-1) {};
+\draw (line1_gate1) edge[edgestyle] (line0_gate1);
+\draw (line0_gate0) edge[edgestyle] (line0_gate1);
+\draw (line1_gate0) edge[edgestyle] (line1_gate1);
+\node[none] (line0_gate2) at (1.15,-0) {};
+\node[none,minimum height=0.8cm,outer sep=0] (line0_gate3) at (1.65,-0) {};
+\node[none] (line0_gate4) at (2.15,-0) {};
+\draw[operator,edgestyle,outer sep=1.0cm] ([yshift=0.4cm]line0_gate2) rectangle ([yshift=-0.4cm]line0_gate4) node[pos=.5] {Rz$_{1.57}$};
+\draw (line0_gate1) edge[edgestyle] (line0_gate2);
+\node[none] (line0_gate5) at (2.6500000000000004,-0) {};
+\node[none,minimum height=0.8cm,outer sep=0] (line0_gate6) at (3.1500000000000004,-0) {};
+\node[none] (line0_gate7) at (3.6500000000000004,-0) {};
+\draw[operator,edgestyle,outer sep=1.0cm] ([yshift=0.4cm]line0_gate5) rectangle ([yshift=-0.4cm]line0_gate7) node[pos=.5] {Rx$_{1.57}$};
+\draw (line0_gate4) edge[edgestyle] (line0_gate5);
+\node[none] (line0_gate8) at (4.15,-0) {};
+\node[none,minimum height=0.8cm,outer sep=0] (line0_gate9) at (4.65,-0) {};
+\node[none] (line0_gate10) at (5.15,-0) {};
+\draw[operator,edgestyle,outer sep=1.0cm] ([yshift=0.4cm]line0_gate8) rectangle ([yshift=-0.4cm]line0_gate10) node[pos=.5] {Rz$_{1.57}$};
+\draw (line0_gate7) edge[edgestyle] (line0_gate8);
+\node[none] (line1_gate2) at (1.15,-1) {};
+\node[none,minimum height=0.8cm,outer sep=0] (line1_gate3) at (1.65,-1) {};
+\node[none] (line1_gate4) at (2.15,-1) {};
+\draw[operator,edgestyle,outer sep=1.0cm] ([yshift=0.4cm]line1_gate2) rectangle ([yshift=-0.4cm]line1_gate4) node[pos=.5] {Rz$_{1.57}$};
+\draw (line1_gate1) edge[edgestyle] (line1_gate2);
+\node[none] (line1_gate5) at (2.6500000000000004,-1) {};
+\node[none,minimum height=0.8cm,outer sep=0] (line1_gate6) at (3.1500000000000004,-1) {};
+\node[none] (line1_gate7) at (3.6500000000000004,-1) {};
+\draw[operator,edgestyle,outer sep=1.0cm] ([yshift=0.4cm]line1_gate5) rectangle ([yshift=-0.4cm]line1_gate7) node[pos=.5] {Rx$_{1.57}$};
+\draw (line1_gate4) edge[edgestyle] (line1_gate5);
+\node[none] (line1_gate8) at (4.15,-1) {};
+\node[none,minimum height=0.8cm,outer sep=0] (line1_gate9) at (4.65,-1) {};
+\node[none] (line1_gate10) at (5.15,-1) {};
+\draw[operator,edgestyle,outer sep=1.0cm] ([yshift=0.4cm]line1_gate8) rectangle ([yshift=-0.4cm]line1_gate10) node[pos=.5] {Rz$_{1.57}$};
+\draw (line1_gate7) edge[edgestyle] (line1_gate8);
+\node[xstyle] (line0_gate11) at (5.55,-0) {};
+\draw[edgestyle] (line0_gate11.north)--(line0_gate11.south);
+\draw[edgestyle] (line0_gate11.west)--(line0_gate11.east);
+\node[phase] (line1_gate11) at (5.55,-1) {};
+\draw (line1_gate11) edge[edgestyle] (line0_gate11);
+\draw (line0_gate10) edge[edgestyle] (line0_gate11);
+\draw (line1_gate10) edge[edgestyle] (line1_gate11);
+\node[none] (line0_gate12) at (6.199999999999999,-0) {};
+\node[none,minimum height=0.8cm,outer sep=0] (line0_gate13) at (6.699999999999999,-0) {};
+\node[none] (line0_gate14) at (7.199999999999999,-0) {};
+\draw[operator,edgestyle,outer sep=1.0cm] ([yshift=0.4cm]line0_gate12) rectangle ([yshift=-0.4cm]line0_gate14) node[pos=.5] {Rz$_{1.57}$};
+\draw (line0_gate11) edge[edgestyle] (line0_gate12);
+\node[none] (line0_gate15) at (7.699999999999999,-0) {};
+\node[none,minimum height=0.8cm,outer sep=0] (line0_gate16) at (8.2,-0) {};
+\node[none] (line0_gate17) at (8.7,-0) {};
+\draw[operator,edgestyle,outer sep=1.0cm] ([yshift=0.4cm]line0_gate15) rectangle ([yshift=-0.4cm]line0_gate17) node[pos=.5] {Rx$_{1.57}$};
+\draw (line0_gate14) edge[edgestyle] (line0_gate15);
+\node[none] (line0_gate18) at (9.2,-0) {};
+\node[none,minimum height=0.8cm,outer sep=0] (line0_gate19) at (9.7,-0) {};
+\node[none] (line0_gate20) at (10.2,-0) {};
+\draw[operator,edgestyle,outer sep=1.0cm] ([yshift=0.4cm]line0_gate18) rectangle ([yshift=-0.4cm]line0_gate20) node[pos=.5] {Rz$_{1.57}$};
+\draw (line0_gate17) edge[edgestyle] (line0_gate18);
+\node[none] (line1_gate12) at (6.199999999999999,-1) {};
+\node[none,minimum height=0.8cm,outer sep=0] (line1_gate13) at (6.699999999999999,-1) {};
+\node[none] (line1_gate14) at (7.199999999999999,-1) {};
+\draw[operator,edgestyle,outer sep=1.0cm] ([yshift=0.4cm]line1_gate12) rectangle ([yshift=-0.4cm]line1_gate14) node[pos=.5] {Rz$_{1.57}$};
+\draw (line1_gate11) edge[edgestyle] (line1_gate12);
+\node[none] (line1_gate15) at (7.699999999999999,-1) {};
+\node[none,minimum height=0.8cm,outer sep=0] (line1_gate16) at (8.2,-1) {};
+\node[none] (line1_gate17) at (8.7,-1) {};
+\draw[operator,edgestyle,outer sep=1.0cm] ([yshift=0.4cm]line1_gate15) rectangle ([yshift=-0.4cm]line1_gate17) node[pos=.5] {Rx$_{1.57}$};
+\draw (line1_gate14) edge[edgestyle] (line1_gate15);
+\node[none] (line1_gate18) at (9.2,-1) {};
+\node[none,minimum height=0.8cm,outer sep=0] (line1_gate19) at (9.7,-1) {};
+\node[none] (line1_gate20) at (10.2,-1) {};
+\draw[operator,edgestyle,outer sep=1.0cm] ([yshift=0.4cm]line1_gate18) rectangle ([yshift=-0.4cm]line1_gate20) node[pos=.5] {Rz$_{1.57}$};
+\draw (line1_gate17) edge[edgestyle] (line1_gate18);
+\node[xstyle] (line0_gate21) at (10.6,-0) {};
+\draw[edgestyle] (line0_gate21.north)--(line0_gate21.south);
+\draw[edgestyle] (line0_gate21.west)--(line0_gate21.east);
+\node[phase] (line1_gate21) at (10.6,-1) {};
+\draw (line1_gate21) edge[edgestyle] (line0_gate21);
+\draw (line0_gate20) edge[edgestyle] (line0_gate21);
+\draw (line1_gate20) edge[edgestyle] (line1_gate21);
+\node[none] (line0_gate22) at (11.249999999999998,-0) {};
+\node[none,minimum height=0.8cm,outer sep=0] (line0_gate23) at (11.749999999999998,-0) {};
+\node[none] (line0_gate24) at (12.249999999999998,-0) {};
+\draw[operator,edgestyle,outer sep=1.0cm] ([yshift=0.4cm]line0_gate22) rectangle ([yshift=-0.4cm]line0_gate24) node[pos=.5] {Rz$_{1.57}$};
+\draw (line0_gate21) edge[edgestyle] (line0_gate22);
+\node[none] (line0_gate25) at (12.749999999999998,-0) {};
+\node[none,minimum height=0.8cm,outer sep=0] (line0_gate26) at (13.249999999999998,-0) {};
+\node[none] (line0_gate27) at (13.749999999999998,-0) {};
+\draw[operator,edgestyle,outer sep=1.0cm] ([yshift=0.4cm]line0_gate25) rectangle ([yshift=-0.4cm]line0_gate27) node[pos=.5] {Rx$_{1.57}$};
+\draw (line0_gate24) edge[edgestyle] (line0_gate25);
+\node[none] (line0_gate28) at (14.249999999999998,-0) {};
+\node[none,minimum height=0.8cm,outer sep=0] (line0_gate29) at (14.749999999999998,-0) {};
+\node[none] (line0_gate30) at (15.249999999999998,-0) {};
+\draw[operator,edgestyle,outer sep=1.0cm] ([yshift=0.4cm]line0_gate28) rectangle ([yshift=-0.4cm]line0_gate30) node[pos=.5] {Rz$_{1.57}$};
+\draw (line0_gate27) edge[edgestyle] (line0_gate28);
+\node[none] (line1_gate22) at (11.249999999999998,-1) {};
+\node[none,minimum height=0.8cm,outer sep=0] (line1_gate23) at (11.749999999999998,-1) {};
+\node[none] (line1_gate24) at (12.249999999999998,-1) {};
+\draw[operator,edgestyle,outer sep=1.0cm] ([yshift=0.4cm]line1_gate22) rectangle ([yshift=-0.4cm]line1_gate24) node[pos=.5] {Rz$_{1.57}$};
+\draw (line1_gate21) edge[edgestyle] (line1_gate22);
+\node[none] (line1_gate25) at (12.749999999999998,-1) {};
+\node[none,minimum height=0.8cm,outer sep=0] (line1_gate26) at (13.249999999999998,-1) {};
+\node[none] (line1_gate27) at (13.749999999999998,-1) {};
+\draw[operator,edgestyle,outer sep=1.0cm] ([yshift=0.4cm]line1_gate25) rectangle ([yshift=-0.4cm]line1_gate27) node[pos=.5] {Rx$_{1.57}$};
+\draw (line1_gate24) edge[edgestyle] (line1_gate25);
+\node[none] (line1_gate28) at (14.249999999999998,-1) {};
+\node[none,minimum height=0.8cm,outer sep=0] (line1_gate29) at (14.749999999999998,-1) {};
+\node[none] (line1_gate30) at (15.249999999999998,-1) {};
+\draw[operator,edgestyle,outer sep=1.0cm] ([yshift=0.4cm]line1_gate28) rectangle ([yshift=-0.4cm]line1_gate30) node[pos=.5] {Rz$_{1.57}$};
+\draw (line1_gate27) edge[edgestyle] (line1_gate28);
+\node[xstyle] (line0_gate31) at (15.649999999999999,-0) {};
+\draw[edgestyle] (line0_gate31.north)--(line0_gate31.south);
+\draw[edgestyle] (line0_gate31.west)--(line0_gate31.east);
+\node[phase] (line1_gate31) at (15.649999999999999,-1) {};
+\draw (line1_gate31) edge[edgestyle] (line0_gate31);
+\draw (line0_gate30) edge[edgestyle] (line0_gate31);
+\draw (line1_gate30) edge[edgestyle] (line1_gate31);
+\node[none] (line2_gate0) at (0.1,-2) {$\Ket{0}$};
+\node[none] (line2_gate1) at (0.6000000000000001,-2) {};
+\node[none,minimum height=0.8cm,outer sep=0] (line2_gate2) at (1.1,-2) {};
+\node[none] (line2_gate3) at (1.6,-2) {};
+\draw[operator,edgestyle,outer sep=1.0cm] ([yshift=0.4cm]line2_gate1) rectangle ([yshift=-0.4cm]line2_gate3) node[pos=.5] {Rz$_{1.57}$};
+\draw (line2_gate0) edge[edgestyle] (line2_gate1);
+\node[none] (line2_gate4) at (2.1,-2) {};
+\node[none,minimum height=0.8cm,outer sep=0] (line2_gate5) at (2.6,-2) {};
+\node[none] (line2_gate6) at (3.1,-2) {};
+\draw[operator,edgestyle,outer sep=1.0cm] ([yshift=0.4cm]line2_gate4) rectangle ([yshift=-0.4cm]line2_gate6) node[pos=.5] {Rx$_{1.57}$};
+\draw (line2_gate3) edge[edgestyle] (line2_gate4);
+\node[none] (line2_gate7) at (3.6,-2) {};
+\node[none,minimum height=0.8cm,outer sep=0] (line2_gate8) at (4.1,-2) {};
+\node[none] (line2_gate9) at (4.6,-2) {};
+\draw[operator,edgestyle,outer sep=1.0cm] ([yshift=0.4cm]line2_gate7) rectangle ([yshift=-0.4cm]line2_gate9) node[pos=.5] {Rz$_{1.57}$};
+\draw (line2_gate6) edge[edgestyle] (line2_gate7);
+\node[xstyle] (line2_gate10) at (16.2,-2) {};
+\draw[edgestyle] (line2_gate10.north)--(line2_gate10.south);
+\draw[edgestyle] (line2_gate10.west)--(line2_gate10.east);
+\node[phase] (line1_gate32) at (16.2,-1) {};
+\draw (line1_gate32) edge[edgestyle] (line2_gate10);
+\draw (line2_gate9) edge[edgestyle] (line2_gate10);
+\draw (line1_gate31) edge[edgestyle] (line1_gate32);
+
+\end{tikzpicture}
+\end{document}
