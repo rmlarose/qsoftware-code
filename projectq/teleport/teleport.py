@@ -1,52 +1,60 @@
-# ==========================================================
-# teleport.py
-#
-# Quantum teleportation using ProjectQ
-# ==========================================================
+"""Quantum teleportation algorithm in ProjectQ v0.4.1."""
 
-# ---------------------------------------------------------
+# =============================================================================
 # imports
-# ---------------------------------------------------------
-from projectq import MainEngine
-from projectq.ops import H, X, Z, Rz, CNOT, Measure
-from projectq.meta import Dagger, Control
+# =============================================================================
 
-# make engine
+from projectq import MainEngine
+from projectq.meta import Control
+import projectq.ops as ops
+
+# =============================================================================
+# engine and qubit register
+# =============================================================================
+
+# engine
 eng = MainEngine()
 
-# allocate qubits
-psi = eng.allocate_qubit()
-b1 = eng.allocate_qubit()
-b2 = eng.allocate_qubit()
+# allocate qubit register
+qbits = eng.allocate_qureg(3)
 
-# ----------------------------------------------------------
+# =============================================================================
 # teleportation circuit
-# ----------------------------------------------------------
+# =============================================================================
 
-# arbitrary initial state to send
-H | psi
-Rz(1.21) | psi
+# Alice teleports |1> to qubit Bob
+ops.X | qbits[0]
 
-H | b1
-CNOT | (b1, b2)
-CNOT | (psi, b1)
-H | psi
-Measure | (psi, b1)
+# main circuit
+ops.H | qbits[1]
+ops.CNOT | (qbits[1], qbits[2])
+ops.CNOT | (qbits[0], qbits[1])
+ops.H | qbits[0]
+ops.Measure | (qbits[0], qbits[1])
 
-with Control(eng, b1):
-    X | b2
-with Control(eng, psi):
-    Z | b2
-with Dagger(eng):
-    H | b2
-    Rz(1.21) | b2 
+# conditional operations
+with Control(eng, qbits[1]):
+    ops.X | qbits[2]
+with Control(eng, qbits[1]):
+    ops.Z | qbits[2]
+    
+# measure qubit three
+ops.Measure | qbits[2]
 
-#del b2
-#eng.flush()
+# =============================================================================
+# run the circuit and print the results
+# =============================================================================
+    
+eng.flush()
+print("Measured:", int(qbits[2]))
 
+"""
+# --------------------------------------------------------
 # optionally draw the circuit
+# --------------------------------------------------------
+
 from projectq.backends import CircuitDrawer
 
 drawing_engine = CircuitDrawer()
-
 print(drawing_engine.get_latex())
+"""
