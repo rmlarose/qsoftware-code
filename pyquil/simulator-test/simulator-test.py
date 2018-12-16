@@ -1,15 +1,8 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""QVM simulator performance test in PyQuil 2.1.1."""
 
-# =====================================
-# simulator-test.py
-#
-# Testing the simulator in pyQuil.
-# =====================================
-
-# -------------------------------------------
+# =============================================================================
 # imports
-# -------------------------------------------
+# =============================================================================
 
 from pyquil.quil import Program
 from pyquil import api
@@ -17,32 +10,35 @@ import pyquil.gates as gates
 import sys
 import time
 
-# --------------------------------------------
+# =============================================================================
 # program and simulator
-# --------------------------------------------
+# =============================================================================
 
 qprog = Program()
-qvm = api.QVMConnection(use_queue=True)
+qvm = api.QVMConnection()
 
-#qvm = QVMConnection()
+# =============================================================================
+# number of qubits, depth, classical memory
+# =============================================================================
 
-# -------------------------------------------
-# number of qubits, depth, and backend to use
-# -------------------------------------------
-
+# grab the number of qubits
 if len(sys.argv) > 1:
     n = int(sys.argv[1])
 else:
-    n = 24
+    n = 12
 
+# grab the depth
 if len(sys.argv) > 1:
     depth = int(sys.argv[2])
 else:
-    depth = 10 
+    depth = 10
 
-# -------------------------------------------
+# allocate classical memory
+creg = qprog.declare("ro", memory_size=n)
+
+# =============================================================================
 # circuit to test simulator
-# -------------------------------------------
+# =============================================================================
 
 # main (arbitrary) circuit
 for level in range(depth):
@@ -54,11 +50,12 @@ for level in range(depth):
             
 # measurements
 for ii in range(n):
-    qprog.inst(gates.MEASURE(ii, ii))
+    qprog.inst(gates.MEASURE(ii, creg[ii]))
 
-# -----------------------------------
+# =============================================================================
 # run the circuit and print the results
-# -----------------------------------
+# =============================================================================
+    
 # timing -- get the start time
 start = time.time()
 
