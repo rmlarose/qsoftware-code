@@ -9,7 +9,9 @@ from pyquil import api
 qprog = Program()
 creg = qprog.declare(name="ro", memory_size=1)
 
-# connect to the qvm. REQUIRES: api key & qvm running in background
+# REQUIRES: api key, qvm running in background ("qvm -S" in a linux terminal
+# after it is installed. See Rigetti website for download instructions
+# https://www.rigetti.com/forest)
 qvm = api.QVMConnection()
 
 # add instructions to the program

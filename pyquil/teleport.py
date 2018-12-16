@@ -1,32 +1,22 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-# =====================================
-# teleport.py
-#
-# Teleportation circuit in pyQuil.
-# =====================================
-
-# -------------------------------------
+"""Teleportation algorithm in PyQuil 2.1.1."""
 # imports
-# -------------------------------------
-
 from pyquil.quil import Program
 from pyquil import api
 import pyquil.gates as gates
 
-# -------------------------------------
-# program and simulator
-# -------------------------------------
-
+# get program, classical memory, simulator
 qprog = Program()
+creg = qprog.declare("ro", memory_size=3)
+# REQUIRES: api key, qvm running in background ("qvm -S" in a linux terminal
+# after it is installed. See Rigetti website for download instructions
+# https://www.rigetti.com/forest)
 qvm = api.QVMConnection()
 
-# -------------------------------------
+# =============================================================================
 # teleportation circuit
-# -------------------------------------
+# =============================================================================
 
-# teleport |1> to qubit three
+# Alice wants to send |1> to Bob
 qprog += gates.X(0)
 
 # main circuit
@@ -34,24 +24,21 @@ qprog += [gates.H(1),
           gates.CNOT(1, 2),
           gates.CNOT(0, 1),
           gates.H(0),
-          gates.MEASURE(0, 0),
-          gates.MEASURE(1, 1)]
+          gates.MEASURE(0, creg[0]),
+          gates.MEASURE(1, creg[1])]
 
 # conditional operations
-qprog.if_then(0, gates.Z(2))
-qprog.if_then(1, gates.X(2))
+qprog.if_then(creg[0], gates.Z(2))
+qprog.if_then(creg[1], gates.X(2))
 
 # measure qubit three
-qprog.measure(2, 2)
+qprog.measure(2, creg[2])
 
-# -----------------------------------
-# run the circuit and print the results
-# -----------------------------------
+# =============================================================================
+# run the circuit and print the results. Note Bob always measures 1
+# =============================================================================
 
 print(qvm.run(qprog))
 
-# -----------------------------------
-# optionally print the quil code
-# -----------------------------------
-
+# print the quil code
 print(qprog)
