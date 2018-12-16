@@ -1,59 +1,55 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+"""Quantum teleportation algorithm in QISKit v0.6.1."""
 
-# ========================================================
-# teleport.py
-#
-# Teleportation circuit in QISKit.
-#
-# written by Ryan LaRose <laroser1@msu.edu>
-# at Michigan State University 05-13-18
-# ========================================================
-
-# --------------------------------------------------------
+# =============================================================================
 # imports
-# --------------------------------------------------------
+# =============================================================================
 
-from qiskit import QuantumProgram available_backends
+from qiskit import (Aer, ClassicalRegister, execute,
+                    QuantumRegister, QuantumCircuit)
+from qiskit.tools.visualization import circuit_drawer
 
-# --------------------------------------------------------
-# quantum program, registers, and circuit
-# --------------------------------------------------------
+# =============================================================================
+# quantum/classical registers and quantum circuit
+# =============================================================================
 
-qprog = QuantumProgram()
-qbits = qprog.create_quantum_register("qbits", 3)
-cbits = qprog.create_classical_register("cbits", 3)
-qcirc = qprog.create_circuit("teleport", [qbits], [cbits])
+qreg = QuantumRegister(3)
+creg = ClassicalRegister(3)
+qcircuit = QuantumCircuit(qreg, creg)
 
-# --------------------------------------------------------
-# teleportation circuit
-# --------------------------------------------------------
+# =============================================================================
+# do the circuit
+# =============================================================================
 
-# teleport |1> to qubit three
-qcirc.x(qbits[0])
+# Alice teleports |1> to qubit Bob
+qcircuit.x(qreg[0])
 
 # main circuit
-qcirc.h(qbits[1])
-qcirc.cx(qbits[1], qbits[2])
-qcirc.barrier(qbits)
-qcirc.cx(qbits[0], qbits[1])
-qcirc.h(qbits[0])
-qcirc.measure(qbits[0], cbits[0])
-qcirc.measure(qbits[1], cbits[1])
+qcircuit.h(qreg[1])
+qcircuit.cx(qreg[1], qreg[2])
+qcircuit.cx(qreg[0], qreg[1])
+qcircuit.h(qreg[0])
+qcircuit.measure(qreg[0], creg[0])
+qcircuit.measure(qreg[1], creg[1])
 
-# conditional operations 
-qcirc.z(qbits[2]).c_if(cbits[0][0], 1)
-qcirc.x(qbits[2]).c_if(cbits[1][0], 1)
-qcirc.measure(qbits[2], cbits[2])
+# conditional operations
+qcircuit.z(qreg[2]).c_if(creg[0][0], 1)
+qcircuit.x(qreg[2]).c_if(creg[1][0], 1)
 
-# --------------------------------------------------------
+# measure qubit three
+qcircuit.measure(qreg[2], creg[2])
+
+# =============================================================================
 # run the circuit and print the results
-#---------------------------------------------------------
+# =============================================================================
 
-job = qprog.execute("teleport", backend='ibmqx4')
-result = job.result()
+backend = Aer.get_backend("qasm_simulator")
+result = execute(qcircuit, backend).result()
+counts = result.get_counts()
 
-# optionally print the QASM code for the circuit
-print(result)
-print(result.get_data())
-print(result.get_ran_qasm("teleport"))
+print(counts)
+
+# optionally print the qasm code
+print(qcircuit.qasm())
+
+# optionally draw the circuit
+circuit_drawer(qcircuit)
