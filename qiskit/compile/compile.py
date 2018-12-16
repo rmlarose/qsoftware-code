@@ -4,15 +4,7 @@
 # imports
 # =============================================================================
 
-from qiskit import (IBMQ, compile, ClassicalRegister, execute,
-                    QuantumCircuit, QuantumRegister, register)
-
-# =============================================================================
-# register so that we can use backends
-# =============================================================================
-
-api = ""
-url = ""
+from qiskit import (IBMQ, compile, QuantumCircuit, QuantumRegister)
 
 # =============================================================================
 # get a quantum circuit
