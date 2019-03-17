@@ -33,7 +33,7 @@ plt.rc('figure', titlesize=MEDIUM_SIZE)  # fontsize of the figure title
 # -----------------------------------------------------
 
 # file path
-fpath = '/home/ryan/phd/quantum-computing-report/project1/code/projectq/simulator-test/'
+fpath = 'data/'
 fname = 'use1.txt'
 fname2 = 'use2.txt'
 
@@ -48,6 +48,7 @@ fig, ax = plt.subplots()
 
 im = ax.imshow(np.log(time), origin=[0,0], cmap='summer')
 #cbar = ax.figure.colorbar(im, ax=ax)
+
 
 plt.title('ProjectQ Simulator Performance', fontsize=16, fontweight='bold')
 plt.xlabel('Number of Qubits')
@@ -64,3 +65,6 @@ for i in range(len(time)):
         tstr = str(time[i, j])
         text = ax.text(j, i, tstr[:5],
                        ha="center", va="center", color="k")
+
+plt.clim(-4, 4)
+plt.savefig("projectq-new.pdf", format="pdf")

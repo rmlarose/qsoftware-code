@@ -7,7 +7,7 @@ This code is updated to work with newer versions of the software platforms. The 
 * [Forest](https://github.com/rigetti) v2.1.1.
 * [QISKit](https://github.com/QISKit) v0.6.1.
 * [ProjectQ](https://github.com/ProjectQ-Framework/ProjectQ) v0.4.1.
-* [QDK](https://github.com/Microsoft/Quantum) v0.2.1802.2202 (pre-release).
+* [QDK](https://github.com/Microsoft/Quantum) v0.5.1902.2802.
 
 The current versions of each platform can be determined by following the links above. 
 
