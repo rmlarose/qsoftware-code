@@ -25,13 +25,10 @@ plt.rc('figure', titlesize=MEDIUM_SIZE)  # fontsize of the figure title
 # -----------------------------------------------------
 
 # file path
-fpath = './'
-fname = 'timing_2018_05_24_17_57_41.txt'
-fname2 = 'timing_2018_05_24_18_14_14.txt'
+fpath = './data/'
+fname = 'data.txt'
 
 data = np.loadtxt(fpath + fname, dtype=float)
-data2 = np.loadtxt(fpath + fname2, dtype=float)
-data = (data + data2) / 2
 
 time = data[:, 2]
 time = np.reshape(time, [int(len(time) / 6), 6])
@@ -56,3 +53,5 @@ for i in range(len(time)):
         tstr = str(time[i, j])
         text = ax.text(j, i, tstr[:5],
                        ha="center", va="center", color="k")
+
+plt.show()

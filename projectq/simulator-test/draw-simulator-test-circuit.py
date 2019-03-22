@@ -33,6 +33,7 @@ for level in range(depth):
     for q in qbits:
         ops.H | q
         ops.SqrtX | q
+        ops.T | q
         if q != qbits[0]:
             ops.CNOT | (q, qbits[0])
             

@@ -1,4 +1,4 @@
-"""Example of compiling an algorithm in QISKit v0.6.1."""
+"""Example of compiling an algorithm in QISKit v0.8.0."""
 
 # =============================================================================
 # imports

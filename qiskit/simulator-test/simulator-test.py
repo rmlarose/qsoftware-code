@@ -1,77 +1,39 @@
-"""Test the QISKit v0.6.1  simulators."""
-
-# =============================================================================
-# imports
-# =============================================================================
+"""Test the QISKit v0.8.0  simulators."""
 
 from qiskit import (Aer, ClassicalRegister, execute,
                     QuantumCircuit, QuantumRegister)
 import sys
 import time
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning) 
 
-# =============================================================================
-# number of qubits, depth, and backend to use
-# =============================================================================
+def benchmark(n, depth):
+    qreg = QuantumRegister(n)
+    creg = ClassicalRegister(n)
+    qcirc = QuantumCircuit(qreg, creg)
 
-# number of qubits in circuit
-if len(sys.argv) > 1:
-    n = int(sys.argv[1])
-else:
-    n = 16
+    # main (arbitrary) circuit
+    for level in range(depth):
+        for ii in range(len(qreg)):
+            q = qreg[ii]
+            qcirc.h(q)
+            qcirc.x(q)
+            qcirc.t(q)
+            if q != qreg[0]:
+                qcirc.cx(q, qreg[0])
 
-# depth of test circuit
-if len(sys.argv) > 2:
-    depth = int(sys.argv[2])
-else:
-    depth = 10 
-
-# key for which backend to use
-# 0 == qasm_simulator, 1 == qasm_simulator_py, 2 == statevector_simulator,
-# 3 == statevector_simulator_py, 4 == unitary_simulator, 5 == clifford_sim
-if len(sys.argv) > 3:
-    backend_key = int(sys.argv[3])
-else:
-    backend_key = 0
-
-# =============================================================================
-# create a circuit, get the simulator
-# =============================================================================
-
-qreg = QuantumRegister(n)
-creg = ClassicalRegister(n)
-qcirc = QuantumCircuit(qreg, creg)
-
-# =============================================================================
-# add the cicuit operations
-# =============================================================================
-
-# main (arbitrary) circuit
-for level in range(depth):
+    # measure
     for ii in range(len(qreg)):
-        q = qreg[ii]
-        qcirc.h(q)
-        qcirc.x(q)
-        if q != qreg[0]:
-            qcirc.cx(q, qreg[0])
+        qcirc.measure(qreg[ii], creg[ii])
 
-# measure
-for ii in range(len(qreg)):
-    qcirc.measure(qreg[ii], creg[ii])
+    backend = Aer.get_backend('qasm_simulator')
 
-# =============================================================================
-# get the backend
-# =============================================================================
-    
-backends = Aer.backends()
-backend = backends[backend_key]
+    start = time.time()
+    result = execute(qcirc, backend).result()
+    return time.time() - start
 
-# =============================================================================
-# execute the circuit and time it
-# =============================================================================
+for n in (16, 17, 18, 19, 20, 21, 22, 23, 24):
+    for d in (5, 10, 15, 20, 25, 30):
+        t = benchmark(n, d)
+        print(n, d, t)
 
-start = time.time()
-result = execute(qcirc, backend)
-runtime = time.time() - start
-
-# print out the runtime
-print(n, depth, runtime)

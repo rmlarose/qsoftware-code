@@ -1,4 +1,4 @@
-"""Quantum teleportation algorithm in QISKit v0.6.1."""
+"""Quantum teleportation algorithm in QISKit v0.8.0."""
 
 # =============================================================================
 # imports
@@ -6,7 +6,6 @@
 
 from qiskit import (Aer, ClassicalRegister, execute,
                     QuantumRegister, QuantumCircuit)
-from qiskit.tools.visualization import circuit_drawer
 
 # =============================================================================
 # quantum/classical registers and quantum circuit
@@ -52,4 +51,4 @@ print(counts)
 print(qcircuit.qasm())
 
 # optionally draw the circuit
-circuit_drawer(qcircuit)
+print(qcircuit)
