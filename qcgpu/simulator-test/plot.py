@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Fri May 18 15:55:56 2018
-
-@author: ryan
-"""
-
 # -----------------------------------------------------
 # imports
 # -----------------------------------------------------
@@ -33,13 +25,10 @@ plt.rc('figure', titlesize=MEDIUM_SIZE)  # fontsize of the figure title
 # -----------------------------------------------------
 
 # file path
-fpath = 'data/'
-fname = 'use1.txt'
-fname2 = 'use2.txt'
+fpath = './data/'
+fname = 'data.txt'
 
 data = np.loadtxt(fpath + fname, dtype=float)
-data2 = np.loadtxt(fpath + fname2, dtype=float)
-data = (data + data2) / 2
 
 time = data[:, 2]
 time = np.reshape(time, [int(len(time) / 6), 6])
@@ -49,13 +38,12 @@ fig, ax = plt.subplots()
 im = ax.imshow(np.log(time), origin=[0,0], cmap='summer')
 #cbar = ax.figure.colorbar(im, ax=ax)
 
-
-plt.title('ProjectQ Simulator Performance', fontsize=16, fontweight='bold')
+plt.title('QCGPU Simulator Performance', fontsize=16, fontweight='bold')
 plt.xlabel('Number of Qubits')
 plt.ylabel('Circuit Depth')
 
 xlocs, xlabels = plt.xticks()
-plt.xticks(range(12), range(16, 28))
+plt.xticks(range(10), range(16, 27))
 
 plt.yticks(range(6), range(5, 35, 5))
 
@@ -66,5 +54,4 @@ for i in range(len(time)):
         text = ax.text(j, i, tstr[:5],
                        ha="center", va="center", color="k")
 
-plt.clim(-4, 4)
-plt.savefig("projectq-new.pdf", format="pdf")
+plt.show()

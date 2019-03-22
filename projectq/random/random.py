@@ -32,5 +32,5 @@ print(int(qbits[0]))
 # generate tex code for drawing the circuit with tikz
 # =============================================================================
 
-drawing_engine = CircuitDrawer()
-print(drawing_engine.get_latex())
+# drawing_engine = CircuitDrawer()
+# print(drawing_engine.get_latex())
